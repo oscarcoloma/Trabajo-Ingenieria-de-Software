@@ -1,0 +1,410 @@
+#include <iostream>
+ using namespace::std;
+ #include <cstdlib>
+ #include <ctime>
+
+ const int Tamano_Arreglo = 8; //casilla 8x8 ajedrez
+ 
+ int Valores( int );
+ void Mueve(int A[Tamano_Arreglo][ Tamano_Arreglo ], int);
+
+ int x = 0;
+ int y = 0;
+ int contador = 1;
+
+ int main()
+
+ { 
+
+ srand(time(NULL)); //random
+ int Tabla[Tamano_Arreglo ][Tamano_Arreglo ] = {{0}, {0}};
+ int i;
+ int centinela = 1;
+ int casillas_a_llenar;
+ int Puedo_Mover_Aqui[Tamano_Arreglo ] = {0};
+ //int sinpasar[Tamano_Arreglo] [Tamano_Arreglo] = {{3}, {3} || {3}, {6} || {6}, {3} || {6}, {6}} ;
+ int Valores_Accesibilidad[Tamano_Arreglo ] = {0, 0};
+ cout <<"Cuantas casillas quiere que recorra el caballo" <<endl;
+ cin >> casillas_a_llenar;
+if (casillas_a_llenar > 64)
+{ cout <<endl << "Ingrese saltos del caballo menor a 64, gracias" << endl <<endl;
+  cout << "Para salir "; system("pause"); return 0; }
+
+  for ( int j = 0; j < Tamano_Arreglo; j++ )
+   {
+
+      for( int k = 0; k < Tamano_Arreglo; k++ )
+        {
+          Tabla[j][k] = 0;
+        }
+
+      Puedo_Mover_Aqui[ j ] = 0;
+      Valores_Accesibilidad[j] = 10;
+   }
+
+ Tabla[ y ][ x ] = 1;
+ while ( casillas_a_llenar > contador && 1 == centinela )
+ { //ABRE WHILE QUE CONTROLA
+  //EL NUMERO DE CASILLAS QUE SE LLENARAN
+ centinela = 0;
+ for( int k = 0; k < Tamano_Arreglo; k++ )
+ {
+ Puedo_Mover_Aqui[ k ] = 0;
+ Valores_Accesibilidad[k] = 10;
+ }
+
+ for ( i = 0; i < Tamano_Arreglo; i++ )
+
+ { //ABRE FOR
+ switch (i)
+ { //ABRE SWITCH
+
+ case 0:
+ {
+     if ( x + 2 < Tamano_Arreglo && y - 1 >= 0 )
+     {
+       if ( Tabla[y - 1][x + 2] == 0 )
+        {
+           Puedo_Mover_Aqui[i] = 1;
+        }
+         //if ( Tabla [3,3] || Tabla [3,6] || Tabla [6,3] || Tabla [6,6] )
+         //{  }
+
+     }
+ break;
+ }
+ //--------------------------------------------------
+ 
+ case 1:
+ {
+
+ if ( x + 1 < Tamano_Arreglo && y - 2 >= 0 )
+ {
+ if ( Tabla[y - 2][x + 1] == 0 )
+ {
+ Puedo_Mover_Aqui[i] = 1;
+ }
+ }
+ break;
+
+ }
+
+ case 2:
+ {
+
+ if ( x - 1 >= 0 && y - 2 >= 0 )
+ {
+ if ( Tabla[y - 2][x - 1] == 0 )
+ {
+ Puedo_Mover_Aqui[i] = 1;
+ }
+ }
+ break;
+ }
+ case 3:
+ {
+ if ( x - 2 >= 0 && y - 1 >= 0 )
+ {
+ if ( Tabla[y - 1][x - 2] == 0 )
+ {
+ Puedo_Mover_Aqui[i] = 1;
+ }
+ }
+ break;
+ }
+
+ case 4:
+ {
+ if ( x - 2 >= 0 && y + 1 < Tamano_Arreglo )
+ {
+ if ( Tabla[y + 1][x - 2] == 0 )
+ {
+ Puedo_Mover_Aqui[i] = 1;
+ }
+ }
+ break;
+ }
+ case 5:
+
+ {
+
+ if ( x - 1 >= 0 && y + 2 < Tamano_Arreglo )
+ {
+ if ( Tabla[y + 2][x - 1] == 0 )
+ {
+ Puedo_Mover_Aqui[i] = 1;
+ }
+ }
+ break;
+ }
+ case 6:
+
+ {
+ if ( x + 1 < Tamano_Arreglo && y + 2 < Tamano_Arreglo )
+ {
+ if ( Tabla[y + 2][x + 1] == 0 )
+ {
+ Puedo_Mover_Aqui[i] = 1;
+ }
+ }
+ break;
+
+ }
+
+ case 7:
+ {
+ if ( x + 2 < Tamano_Arreglo && y + 1 < Tamano_Arreglo )
+ { //ABRE IF
+ if ( Tabla[y + 1][x + 2] == 0 )
+ { //ABRE IF ANIDADO
+ Puedo_Mover_Aqui[i] = 1;
+ } //CIERRA IF ANIDADO
+ } // CIERRA IF 
+ break;
+ }
+ default:
+ {
+ cout << "EL CONTADOR i NO ESTA DANDO LOS NUMEROS CORRECTOS" << endl;
+ cout << "el contador es: " << i << endl; 
+ break;
+
+ }
+ } //CIERRA SWITCH
+ } //CIERRA FOR
+ 
+ for ( i = 0; i < Tamano_Arreglo; i++ )
+ {
+ if ( 1 == Puedo_Mover_Aqui[i] )
+ {
+ centinela = 1;
+ }
+ }
+ if ( 1 == centinela )
+ { // ABRE IF
+ for ( i = 0; i < Tamano_Arreglo; i++ )
+ { //ABRE FOR
+ if ( 1 == Puedo_Mover_Aqui[ i ])
+ { //ABRE IF ANIDADO
+ Valores_Accesibilidad[i] = Valores(i);
+ } //CIERRA IF
+ } //CIERRA FOR
+
+ int menor = Valores_Accesibilidad[0];
+ int movimiento_a_hacer = 0;
+
+ for ( i = 1; i < Tamano_Arreglo; i++ )
+ {
+ if ( Valores_Accesibilidad[i] < menor )
+ {
+ menor = Valores_Accesibilidad[i];
+ movimiento_a_hacer = i;
+ }
+
+ if ( Valores_Accesibilidad[i] == menor )
+ {
+ int aguila_o_sol = rand() % 2;
+ if ( 0 == aguila_o_sol )
+ movimiento_a_hacer = i;
+ }
+ }
+
+ ++contador;
+ Mueve( Tabla, movimiento_a_hacer);
+
+ } // CIERRA IF
+ } //CIERRA WHILE
+
+ cout <<"El contador es: " << contador << endl << endl; 
+ for ( int d = 0; d < Tamano_Arreglo; d++ )
+ {
+ for( int k = 0; k < Tamano_Arreglo; k++ )
+ {
+ if ( 0 == Tabla[d][k] && 0 == Tabla[d][k] / 10 )
+   //MODIFICADA LA LINEA DE ARRIBA
+ cout << " ";
+ cout << Tabla[d][k] << " "; 
+ }
+ cout << endl <<endl;
+ }
+system("pause");
+ return 0;
+
+ } //CIERRA MAIN
+
+
+ ////////////////////////////////////////////////////////////////////
+ // FUNCION VALORES
+ ////////////////////////////////////////////////////////////////////
+
+ int Valores(int movimiento)
+
+ { // ABRE VALORES
+ int Accesibilidad[Tamano_Arreglo + 1][Tamano_Arreglo + 1] =
+
+ {
+
+ { 2, 3, 4, 4, 4, 4, 3, 2 },
+ { 3, 4, 6, 6, 6, 6, 4, 3 },
+ { 4, 6, 8, 8, 8, 8, 6, 4 },
+ { 4, 6, 8, 8, 8, 8, 6, 4 },
+ { 4, 6, 8, 8, 8, 8, 6, 4 },
+ { 4, 6, 8, 8, 8, 8, 6, 4 },
+ { 3, 4, 6, 6, 6, 6, 4, 3 },
+ { 2, 3, 4, 4, 4, 4, 3, 2 }
+
+ };
+
+ switch (movimiento)
+
+ { //ABRE SWITCH
+
+ case 0:
+ {
+ return Accesibilidad[y - 1][x + 2];
+ break;
+ }
+
+ case 1:
+ {
+ return Accesibilidad[y - 2][x + 1];
+ break;
+ }
+ case 2:
+ {
+ return Accesibilidad[y - 2][x - 1];
+ break;
+ }
+ case 3:
+ {
+ return Accesibilidad[y - 1][x - 2];
+ break;
+ }
+
+ case 4:
+ {
+ return Accesibilidad[y + 1][x - 2];
+ break;
+ }
+
+ case 5:
+ {
+ return Accesibilidad[y + 2][x - 1];
+ break;
+ }
+
+ case 6:
+ {
+ return Accesibilidad[y + 2][x + 1];
+ break;
+ }
+
+ case 7:
+ {
+ return Accesibilidad[y + 1][x + 2];
+ break;
+ }
+
+ default:
+
+ {
+ cout << "EL MOVIMIENTO ES ILEGAL" << endl;
+ cout << "EL MOVIMIENTO ES: " << movimiento << endl;
+ return -1;
+ break;
+ }
+ } //CIERRA SWITCH
+
+ } //CIERRA FUNCION VALORES
+
+
+ /////////////////////////////////////////////////////////////
+ //FUNCION MUEVE
+ /////////////////////////////////////////////////////////////
+
+ void Mueve(int A[Tamano_Arreglo][Tamano_Arreglo ], int movimientos )
+
+ { // ABRE VALORES
+ switch (movimientos)
+
+ { //ABRE SWITCH
+ case 0:
+ {
+ y -= 1;
+ x += 2;
+ A[y ][x ] = contador;
+ break;
+ }
+
+ case 1:
+ {
+ y -= 2;
+ x += 1;
+ A[y ][x ] = contador;
+ break;
+ }
+
+ case 2:
+ {
+ y -= 2;
+ x -= 1;
+ A[y ][x ] = contador;
+ break;
+
+ }
+
+ case 3:
+ {
+ y -= 1;
+ x -= 2;
+ A[y ][x ] = contador;
+ break;
+ }
+
+ case 4:
+ {
+ y += 1;
+ x -= 2;
+ A[y ][x ] = contador;
+ break;
+ }
+
+ case 5:
+ {
+ y += 2;
+ x -= 1;
+ A[y][x ] = contador;
+ break;
+ }
+
+ case 6:
+ {
+ y += 2;
+ x += 1;
+ A[y ][x ] = contador;
+ break;
+ }
+
+ case 7:
+ {
+ y += 1;
+ x += 2;
+ A[y ][x ] = contador;
+ break;
+ }
+
+ default:
+
+ {
+ cout << "EL MOVIMIENTO ES ILEGAL" << endl;
+ cout << "EL MOVIMIENTO ES: " << movimientos << endl; 
+ 
+ break;
+ 
+ }
+
+} //CIERRA SWITCH
+
+ return;
+
+ } //CIERRA FUNCION MUEVE
+
