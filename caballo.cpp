@@ -2,7 +2,7 @@
  using namespace::std;
  #include <cstdlib>
  #include <ctime>
-//prueba para git hub
+
  const int TamanoTabla = 8; //casilla 8x8 ajedrez
  
  int Valores( int );
