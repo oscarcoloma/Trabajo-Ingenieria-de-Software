@@ -28,7 +28,7 @@
 if (espaciollenar > 64)
 { cout <<endl << "Ingrese saltos del caballo menor a 64, gracias" << endl <<endl;
   cout << "Para salir "; system("pause"); return 0; }
-
+  
   for ( int j = 0; j < TamanoTabla; j++ )
    {
 
@@ -44,7 +44,7 @@ if (espaciollenar > 64)
  Tabla[ y ][ x ] = 1;
  while ( espaciollenar > contador && 1 == caballo )
  {
-  //analiza cuantos espacios se lñlenaran
+  //analiza cuantos espacios se lÃ±lenaran
  caballo = 0;
  for( int k = 0; k < TamanoTabla; k++ )
  {
@@ -216,20 +216,26 @@ if (espaciollenar > 64)
 
  } 
  } 
-
+ int num=8;
  cout <<"El contador es: " << contador << endl << endl; 
  cout<<"Puede que salga un contador menor al ingresado, esto sucede por los mivimientos random que se realizan, disculpe las molestias"<<endl<<endl;
  cout<<"El numero que sale en la tabla, indica el orden de los movimientos segun la cantidad ingresada, el 0 indica posiciones donde no paso el caballo"<<endl<<endl;
+  cout <<"  A  B  C  D  E  F  G  H "<<endl; //IMPRIME indice del tablero horizontal
+  cout <<num<<"-";
+  num--;
  for ( int d = 0; d < TamanoTabla; d++ )
  {
  for( int k = 0; k < TamanoTabla; k++ )
- {
+ { 
  if ( 0 == Tabla[d][k] && 0 == Tabla[d][k] / 10 )
-   
+  
  cout << " ";
  cout << Tabla[d][k] << " "; 
  }
  cout << endl <<endl;
+ 
+ cout <<num<<"-"; //IMPRIME indice del tablero vertical 
+ num--;
  }
 system("pause");
  return 0;
@@ -404,4 +410,4 @@ system("pause");
  return;
 
  } 
-
+ 
