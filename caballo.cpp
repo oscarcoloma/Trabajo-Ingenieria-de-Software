@@ -252,14 +252,14 @@ system("pause");
 
  {
 
- { 2, 3, 4, 4, 4, 4, 3, 2 },
- { 3, 4, 6, 6, 6, 6, 4, 3 },
+ { 2, 2, 4, 3, 3, 4, 2, 2 },  //se cambio la matriz de acceso, acorde a los posibles movimientos que se pueden hacer
+ { 2, 4, 6, 5, 5, 6, 4, 2 },
  { 4, 6, 99, 8, 8, 99, 6, 4 },
- { 4, 6, 8, 8, 4, 8, 6, 4 },
- { 4, 6, 8, 8, 8, 8, 6, 4 },
+ { 3, 5, 8, 6, 6, 8, 5, 3 },
+ { 3, 5, 8, 6, 6, 8, 5, 3 },
  { 4, 6, 99, 8, 8, 99, 6, 4 },  //el numero 99 indica donde estan supuestamente los peones 
- { 3, 4, 6, 6, 6, 6, 4, 3 },    //para que no haga un movimiento en esa casilla se uso
- { 2, 3, 4, 4, 4, 4, 3, 2 }    //un numero mayor para que no ejecutara el movimiento
+ { 2, 4, 6, 5, 5, 6, 4, 2 },    //para que no haga un movimiento en esa casilla se uso
+ { 2, 2, 4, 3, 3, 4, 2, 2 }    //un numero mayor para que no ejecutara el movimiento
 
  };
  switch (movimiento)
